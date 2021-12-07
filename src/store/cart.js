@@ -3,6 +3,7 @@ const REMOVE_FROM_CART = 'cart/REMOVE_FROM_CART';
 const INCREMENT_COUNT = 'cart/INCREMENT_COUNT';
 const DECREMENT_COUNT = 'cart/DECREMENT_COUNT';
 const SET_NEW_COUNT = 'cart/SET_NEW_COUNT';
+const PURCHASE = 'cart/PURCHASE';
 
 export const addToCart = (produceId) => {
   return {
@@ -39,8 +40,14 @@ export const setNewCount = (id, count) => {
       id,
       count
     }
-  }
-}
+  };
+};
+
+export const purchase = () => {
+  return {
+    type: PURCHASE
+  };
+};
 
 export default function cartReducer(state = {}, action) {
   switch (action.type) {
@@ -78,6 +85,8 @@ export default function cartReducer(state = {}, action) {
       newState[action.data.id].count = action.data.count;
       return newState;
     }
+    case PURCHASE:
+      return {};
     default:
       return state;
   }
