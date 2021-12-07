@@ -5,6 +5,16 @@ const DECREMENT_COUNT = 'cart/DECREMENT_COUNT';
 const SET_NEW_COUNT = 'cart/SET_NEW_COUNT';
 const PURCHASE = 'cart/PURCHASE';
 
+export const getCartItems = (state) => {
+  return Object.values(state.cart)
+    .map(item => {
+      return {
+        ...item,
+        ...state.produce[item.id]
+      };
+    });
+};
+
 export const addToCart = (produceId) => {
   return {
     type: ADD_TO_CART,
