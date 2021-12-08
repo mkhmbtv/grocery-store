@@ -1,10 +1,15 @@
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../store/cart';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, getCartItemById, updateCount } from '../../store/cart';
 import { toggleLike } from '../../store/produce';
 
 function ProduceDetails({ produce }) {
   const dispatch = useDispatch();
-  const cartItem = {};
+  const cartItem = useSelector(getCartItemById(produce.id));
+
+  const add = () => {
+    if (cartItem) return dispatch(updateCount(produce.id, cartItem.count + 1));
+    return dispatch(addToCart(produce.id))
+  };
 
   return (
     <li className="produce-details">
@@ -18,7 +23,7 @@ function ProduceDetails({ produce }) {
         </button>
         <button
           className={"plus-button" + (cartItem ? " selected" : "")}
-          onClick={() => dispatch(addToCart(produce.id))}
+          onClick={() => dispatch(add())}
         >
           <i className="fas fa-plus" />
         </button>
